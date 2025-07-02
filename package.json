@@ -1,0 +1,16 @@
+{
+  "name": "qualitest-demo",
+  "version": "1.0.0",
+  "description": "Cypress interview code",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open --config pageLoadTimeout=100000",
+    "test:open": "npx cypress open"
+  },
+  "keywords": [],
+  "author": "Ablaye Thiam",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^14.5.0"
+  }
+}
