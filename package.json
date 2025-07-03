@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open --config pageLoadTimeout=100000",
-    "test:open": "npx cypress open"
+    "test:open": "npx cypress open",
+    "test:run": "npx cypress run"
   },
   "keywords": [],
   "author": "Ablaye Thiam",
