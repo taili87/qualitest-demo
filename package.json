@@ -12,6 +12,10 @@
   "author": "Ablaye Thiam",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.5.0"
+    "cypress": "^14.5.4"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3",
+    "xlsx": "^0.18.5"
   }
 }
