@@ -1,31 +1,25 @@
-const { defineConfig } = require("cypress");
-import * as XLSX from "xlsx";
+// cypress.config.js
+const xlsx = require('xlsx');
 
-module.exports = defineConfig({
+module.exports = {
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-
-on("task", {
-        readExcel({ filePath, sheetName }) {
-          const workbook = XLSX.readFile(filePath);
-          const sheet = workbook.Sheets[sheetName];
-          const jsonData = XLSX.utils.sheet_to_json(sheet);
-          return jsonData; // returns array of objects
+      on('task', {
+        writeXLSX({ filePath, data, sheetName = 'Sheet1' }) {
+          const ws = xlsx.utils.json_to_sheet(data);
+          const wb = xlsx.utils.book_new();
+          xlsx.utils.book_append_sheet(wb, ws, sheetName);
+          xlsx.writeFile(wb, filePath);
+          return null;
         },
-        writeExcel({ filePath, sheetName, data }) {
-          const workbook = XLSX.readFile(filePath);
-          const ws = XLSX.utils.json_to_sheet(data);
-          workbook.Sheets[sheetName] = ws;
-          XLSX.writeFile(workbook, filePath);
-          return true;
-        },
-
+        // Example for reading an existing file
+        readXLSX({ filePath, sheetName = 'Sheet1' }) {
+          const workbook = xlsx.readFile(filePath);
+          const ws = workbook.Sheets[sheetName];
+          return xlsx.utils.sheet_to_json(ws);
+        }
       });
+      return config;
     },
-    baseUrl: "https://example.cypress.io",
-    specPattern: "cypress/e2e/**/*.cy.js",
-    supportFile: "cypress/support/index.js",
-    
   },
-});
+};
